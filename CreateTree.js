@@ -6,7 +6,7 @@ function CreateTree(Root, Branches) {
     
     let defaultFontSize = 14
     
-    let rootWidth = contentViewer.width / 4.165;
+    let rootWidth = contentViewer.width / 4.165; //contentv divided by ~250;
     let rootHeight = contentViewer.height / 3.836;
    
     let ceo = SetupItem(Root, rootWidth, rootHeight, defaultFontSize);
@@ -63,12 +63,10 @@ function GetPicture(source, item) {
     
     let dimensions;
     
-    if (item.width <= item.height)
-        {
+    if (item.width <= item.height) {
             dimensions = item.width * 0.5;
         }
-    else if (item.width > item.height)
-        {
+    else if (item.width > item.height) {
             dimensions = item.height * 0.5;
         }
     
@@ -101,7 +99,7 @@ function GetText(source, item, fontsize) {
             
         {
             let text = new PIXI.Text('Slack... CLICK ME!', {
-                fontFamily: 'Arial',
+                fontFamily: 'SquareFont',
                 fontSize: fontsize,
                 fill: 0xFFFFFF,
                 wordWrap: true,
@@ -122,7 +120,7 @@ function GetText(source, item, fontsize) {
         {
 
             text = new PIXI.Text(source[field], {
-                fontFamily: 'Arial',
+                fontFamily: 'SquareFont',
                 fontSize: fontsize,
                 fill: 0xFFFFFF,
                 wordWrap: true,
@@ -149,22 +147,32 @@ function GetDepartmentName(string, container) {
     let department = string.slice(8);
 
     let text = new PIXI.Text(department, {
-            fontFamily: 'Arial',
+            fontFamily: 'SquareFont',
             fontSize: 14,
             fill: 0xffffff,
             wordWrap: true,
-            wordWrapWidth: container.width,
+            wordWrapWidth: container.width - 10,
             align: 'center'
         });
     
-    SetToMid(text, container);
+    SetElementPosition(text, container, 'x', 'y');
     
     return text;
 }
 
-function SetToMid(item, whereToSet) {
-    item.x = (whereToSet.width - item.width) * 0.5;
-    item.y = (whereToSet.height - item.height) * 0.5;
+function SetElementPosition(item, whereToSet, axisX, axisY) {
+    
+    if (axisX === 'x'){
+        item.x = (whereToSet.width - item.width) * 0.5;
+    }
+    else if (!isNaN(axisX)){
+        item.x = axisX;
+    }
+    
+    if (axisY === 'y'){
+         item.y = (whereToSet.height - item.height) * 0.5;
+    }
+   
     //log(item.x, item.y);
 }
 

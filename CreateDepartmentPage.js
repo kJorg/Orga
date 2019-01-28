@@ -9,8 +9,10 @@ function SetDepartmentScreen(dept){
     departmentPage.addChild(header)
     
     let backbutton = SetBackButton(departmentPage);
-    backbutton.y = header.height * 0.5;
-    backbutton.x = 20;
+    
+    SetElementPosition(backbutton, header, 20, 'y');
+//    backbutton.y = header.height * 0.5;
+//    backbutton.x = 20;
     
     header.addChild(backbutton); 
     
@@ -21,6 +23,8 @@ function SetDepartmentScreen(dept){
 }
 
 function ComposeDepartmentScreen(departmentToShow, container, header){
+    
+    let managers = new PIXI.Container();
     
     let head = SetDepartmentManagers(departmentToShow, heads);
         
@@ -61,7 +65,7 @@ function SetDepartmentManagers(departmentName, arr){
     
     if (manager != undefined){
         let item = new PIXI.Container();
-        item = SetupItem(manager, 250, 250);
+        item = SetupItem(manager, 250, 250, 14);
         return item; 
     }
 }
@@ -75,11 +79,12 @@ function SetHeader(dept){
     headerBarContainer.addChild(headerBg);
     
     let headerText = new PIXI.Text(dept, {
+        fontFamily: 'SquareFont',
         fill: 0xffffff,
         fontSize: 32
     });
     
-    SetToMid(headerText, headerBg);
+    SetElementPosition(headerText, headerBg, 'x', 'y');
     
     headerBarContainer.addChild(headerText);
     
@@ -90,6 +95,7 @@ function SetBackButton(dept){
     let backButton = new PIXI.Container();
     
     let text = new PIXI.Text('Back', {
+        fontFamily: 'SquareFont',
         fill: 0xffffff,
     });
     
@@ -98,7 +104,7 @@ function SetBackButton(dept){
         .lineStyle(2, 0xffffff, 2)
         .drawRect(0, 0, text.width + 10, text.height);
     
-    text.x = (backBg.width - text.width) * 0.5;
+    SetElementPosition(text, backBg, 'x');
    
     backButton.addChild(backBg, text);
     
@@ -107,8 +113,6 @@ function SetBackButton(dept){
         tree.visible = true;
         contentViewer.removeChild(dept);
     }
-    
-    backButton.pivot.y = backButton.height * 0.5;
     
     return backButton;
     

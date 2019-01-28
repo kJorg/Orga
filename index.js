@@ -1,10 +1,11 @@
 const log = console.log;
 
 let app = new PIXI.Application({
-    width: window.innerWidth,
+    width: window.innerWidth - 30,
     height: window.innerHeight,
     transparent: true,
-    antialias: true    
+    antialias: true,
+    autoresize: true
     });
 
 document.body.appendChild(app.view);
