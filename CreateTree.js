@@ -55,7 +55,7 @@ function GetPicture(source, item) {
     // let pic = new PIXI.Sprite.fromImage(source); will not load now, confluence security crap
     let verticalOffset = 5;
     
-    let texture = new PIXI.Texture.fromImage('./source/lion.jpeg');
+    let texture = new PIXI.Texture.fromImage("./source/lion.jpeg");
 
     let pic = new PIXI.Sprite(texture);
     
