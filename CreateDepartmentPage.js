@@ -11,8 +11,6 @@ function SetDepartmentScreen(dept){
     let backbutton = SetBackButton(departmentPage);
     
     SetElementPosition(backbutton, header, 20, 'y');
-//    backbutton.y = header.height * 0.5;
-//    backbutton.x = 20;
     
     header.addChild(backbutton); 
     
@@ -24,18 +22,24 @@ function SetDepartmentScreen(dept){
 
 function ComposeDepartmentScreen(departmentToShow, container, header){
     
-    let managers = new PIXI.Container();
-    
     let head = SetDepartmentManagers(departmentToShow, heads);
         
     let deputy = SetDepartmentManagers(departmentToShow, deputies);
     
-    DeptManagersPositon(head, deputy, header);
+    
     
     if (deputy != undefined){
+        
+        DeptManagersPositon(header, head, deputy);
+        
         container.addChild(head, deputy);
+        
     } else {
+        
+        DeptManagersPositon(header, head);
+        
         container.addChild(head);
+   
     }
         //to do
     //let teams = SetDepartmentTeams(department);
@@ -44,7 +48,7 @@ function ComposeDepartmentScreen(departmentToShow, container, header){
     
 }
 
-function DeptManagersPositon(manager1, manager2, header) {
+function DeptManagersPositon(header, manager1, manager2) {
    
     manager1.y = header.height + 5;
     

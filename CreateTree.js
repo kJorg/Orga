@@ -193,9 +193,20 @@ function SetupDepartments(items, offset) {
         branchItem.addChild(departmentName);
         branchItem.name = departmentName._text;
         branchItem.interactive = true;
-         
-        branchItem.click = () => {            
-            GoToDepartmentPage(branchItem.name);
+        
+        branchItem.click = () => GoToDepartmentPage(branchItem.name);
+        
+        branchItem.mouseover = function(mouseData){
+            this.scale.y = 1.1;
+            this.y -= 5;
+            this.alpha += 8;
+            //log(mouseData);
+        }
+        
+        branchItem.mouseout = function(mouseData){
+            this.scale.y = 1;
+            this.y += 5;
+            this.alpha -= 8;
         }
         
         container.addChild(branchItem);
