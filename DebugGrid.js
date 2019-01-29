@@ -8,10 +8,7 @@ let gridButton = new PIXI.Graphics()
 
 gridButton.interactive = true;
 
-gridButton.click = () =>
-{
-    SwitchGrid(grid);
-}
+gridButton.click = () => SwitchGrid(grid);
 
 contentViewer.addChild(gridButton);
 
@@ -21,7 +18,7 @@ function BuildGrid(){
     
     let container = new PIXI.Container();
     
-    for (let i = 1; i <= nlines; i++){
+    for (let i = 0; i <= nlines; i++){
         let vlinex = app.view.width/nlines;
         let vline = new PIXI.Graphics()
 

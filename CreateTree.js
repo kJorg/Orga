@@ -196,16 +196,11 @@ function SetupDepartments(items, offset) {
         
         branchItem.click = () => GoToDepartmentPage(branchItem.name);
         
-        branchItem.mouseover = function(mouseData){
-            this.scale.y = 1.1;
-            this.y -= 5;
+        branchItem.mouseover = function(mouseData) {
             this.alpha += 8;
-            //log(mouseData);
         }
         
-        branchItem.mouseout = function(mouseData){
-            this.scale.y = 1;
-            this.y += 5;
+        branchItem.mouseout = function(mouseData) {
             this.alpha -= 8;
         }
         

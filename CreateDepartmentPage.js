@@ -50,16 +50,17 @@ function ComposeDepartmentScreen(departmentToShow, container, header){
 
 function DeptManagersPositon(header, manager1, manager2) {
    
-    manager1.y = header.height + 5;
-    
-    if (manager2 != undefined){
-       
+    manager1.y = header.height + 6;
+    SetElementPosition(manager1, contentViewer, 'x');
+    if (manager2 != undefined) {
+        let dist = 6;
+        manager1.x -= (manager1.width + dist) * 0.5;
         manager2.y = manager1.y;
-        manager2.x = manager1.width + 5;
+        manager2.x = manager1.x + manager1.width + dist;
    }
 }
 
-function SetDepartmentManagers(departmentName, arr){
+function SetDepartmentManagers(departmentName, arr) {
                 
     let manager = arr.find(function(Person) {
         if (Person.position.includes(departmentName)) {
@@ -117,6 +118,15 @@ function SetBackButton(dept){
         tree.visible = true;
         contentViewer.removeChild(dept);
     }
+    
+    backButton.mouseover = function(mouseData){
+        this.alpha += 8;        
+    }
+                           
+    backButton.mouseout = function(mouseData){
+        this.alpha -= 8;
+    }
+    
     
     return backButton;
     
