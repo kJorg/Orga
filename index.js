@@ -2,7 +2,7 @@ const log = console.log;
 
 let app = new PIXI.Application({
     width: window.innerWidth - 30,
-    height: window.innerHeight,
+    height: window.innerHeight - 30,
     transparent: true,
     antialias: true,
     autoresize: true
@@ -23,6 +23,6 @@ app.stage.addChild(contentViewer);
 
 let tree = CreateTree(root, heads);
 
-tree.y = 0;// to do, hardcoded  for now(if needed)
+tree.y = 20;// to do, hardcoded  for now(if needed)
 
 contentViewer.addChild(tree);

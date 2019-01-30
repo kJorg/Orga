@@ -172,8 +172,11 @@ function SetElementPosition(item, whereToSet, axisX, axisY) {
     if (axisY === 'y'){
          item.y = (whereToSet.height - item.height) * 0.5;
     }
+    
+     else if (!isNaN(axisY)){
+        item.y = axisY;
+    }
    
-    //log(item.x, item.y);
 }
 
 function SetupDepartments(items, offset) {

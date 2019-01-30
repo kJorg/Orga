@@ -13,6 +13,7 @@ gridButton.click = () => SwitchGrid(grid);
 contentViewer.addChild(gridButton);
 
 let grid = BuildGrid();
+grid.name = 'Setka';
 
 function BuildGrid(){
     
@@ -37,11 +38,21 @@ function BuildGrid(){
     
     return container;
 }
-
-grid.visible = false;
-contentViewer.addChild(grid);
-
+    
 function SwitchGrid(grid){
-    grid.visible = !grid.visible; 
+    
+    if (contentViewer.getChildByName('Setka') != null){
+        contentViewer.removeChild(grid);
+    } else {
+        contentViewer.addChild(grid);
+    }
 }
+
+//prev version
+//grid.visible = false;
+//contentViewer.addChild(grid);
+//
+//function SwitchGrid(grid){
+//    grid.visible = !grid.visible; 
+//}
 //-------------------------------------------------------------------------------------
