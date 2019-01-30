@@ -1,23 +1,23 @@
 let standartGap = 6;
+
 function SetDepartmentScreen(dept){
-        
-    let departmentPage = new PIXI.Container();
     
+    let header, managers, teamsViewArea;
+    
+    let departmentPage = new PIXI.Container();
     departmentPage.name = dept;
         
-    CreateHeader(departmentPage);
+    header = CreateHeader(departmentPage);
+
+    managers = CreateManagerCards(departmentPage, heads, deputies);
     
-    CreateManagerCards(departmentPage, heads, deputies);
+    teamsViewArea = CreateTeamViewArea();
     
-    CreateTeamViewArea(departmentPage);
+    teamButtons = CreateTeamButtons(dept, teamsViewArea);
     
-    //departmentPage.addChild(header)
+    AssembleScreen(header, managers, teamsViewArea);
     
-  // let teamViewer = SetTeamsViewer();
-    
-    //ComposeDepartmentScreen(dept, departmentPage, teamViewer);
-    
-   // departmentPage.addChild(teamViewer);
+    departmentPage.addChild(header, teamsViewArea, managers);
           
     contentViewer.addChild(departmentPage);
     
@@ -44,9 +44,7 @@ function CreateHeader(page){
     
     headerBarContainer.addChild(headerText);
     
-    headerBarContainer.name = 'Header';
-    
-    page.addChild(headerBarContainer);
+    return headerBarContainer;
 }
 
 function CreateBackButton(page, container){
@@ -86,48 +84,19 @@ function CreateBackButton(page, container){
     
 }
 
+function CreateTeamViewArea(){
 
-
-function CreateTeamViewArea(page){
-    
-    let cards = page.getChildByName('Managers');
-    
     let bg = new PIXI.Graphics()
         .beginFill(0x000055)
-        .drawRect(0, cards.y + cards.height + standartGap, contentViewer.width, 500);
-    page.addChild(bg);
-    bg.name = 'TeamHolder';
-}
-
-function ComposeDepartmentScreen(deptartment, page, header, viewer){
+        .drawRect(0, 0, contentViewer.width, 500);
     
-    let head = SetDepartmentManagers(deptartment, heads);
-        
-    let deputy = SetDepartmentManagers(deptartment, deputies);
-    
-    teamsPositionHeight = head.y + head.height+ 20;
-    
-    if (deputy != undefined){
-        
-        DeptManagersPositon(header, head, deputy);
-        
-        page.addChild(head, deputy);
-        
-    } else {
-        
-        DeptManagersPositon(header, head);
-        
-        page.addChild(head);
-   
-    }
-        //to do
-    //let teams = SetDepartmentTeams(department);
-    //container.addChild(head, deputy);
-   // SetToMid(container, contentViewer);
-    
+    return bg;
 }
 
 function CreateManagerCards(department, heads, deputies) {
+    
+    let managers = new PIXI.Container();
+    managers.name = 'Managers';
     
     let managerList = [];
     
@@ -142,24 +111,49 @@ function CreateManagerCards(department, heads, deputies) {
     
     managerList.push(head, deputy);
     
-     let managers = new PIXI.Container();
-    managers.name = 'Managers';
-    
-    let yPosition = department.getChildByName('Header').height + standartGap;
-    
     let headItem = SetupItem(managerList[0], 250, 250, 14);
          
     managers.addChild(headItem);
          
     if (managerList[1] != undefined) {
-        let gap = 6;
         deputyItem = SetupItem(managerList[1], 250, 250, 14);
-        deputyItem.x = headItem.x + headItem.width + gap;
+        deputyItem.x = headItem.x + headItem.width + standartGap;
         
         managers.addChild(deputyItem);
     }
     
-    SetElementPosition(managers, contentViewer, 'x', yPosition);
+    return managers;
+}
+
+function CreateTeamButtons(department, view) {
+    let buttons = new PIXI.Container();
+    let fakedept = [1,2,3];
+    for (let i = 0; i < fakedept.length; i++){
+        let button = new PIXI.Container();
+        let bg = new PIXI.Graphics()
+            .beginFill(0x770000)
+            .drawRect(0, 0, 50, 50);
+        button.addChild(bg);
+        let txt = new PIXI.Text(fakedept[i]);
+        button.addChild(txt);
+        button.interactive = true;
+        button.x = (50 + standartGap) * i;
+        
+        button.click = () => {
+            log(department, fakedept[i]);
+        }
+        buttons.addChild(button);
+    }
     
-    department.addChild(managers);
+    view.addChild(buttons);
+    
+    buttons.x = (view.width - buttons.width) * 0.5;
+    buttons.y = standartGap;
+    
+}
+
+function AssembleScreen(header, managers, teamView){
+    managers.y = header.y + header.height + standartGap;
+    SetElementPosition(managers, header, 'x');
+    teamView.y = managers.y + managers.height + standartGap;
 }
